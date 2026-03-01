@@ -72,6 +72,12 @@ dialog .header {
 	border-bottom: 1px solid aliceblue;
 }
 
+.project-list ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .task-area {
 	background-color: lightsteelblue;
 	flex-grow: 5;

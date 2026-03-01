@@ -6,8 +6,8 @@ const main = (() => {
     document.addEventListener("DOMContentLoaded", () =>{
         //localStorage.clear() // uncomment to reset storage
         //initialiseLogic(); // to be developed
-        if (loadProjects === null) {
-            saveProjects([]);
+        if (loadProjects() === null) {
+            saveProjects([{name: "My first project", tasks: []}]);
         }
         loadDOM();
     });

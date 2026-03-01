@@ -10,4 +10,12 @@ function clearProjects() {
 	localStorage.clear();
 }
 
-export { saveProjects, loadProjects, clearProjects }
+function checkEmpty() {
+    if (loadProjects === null) {
+        return true
+    } else {
+        return loadProjects().length === 0;
+    }
+}
+
+export { saveProjects, loadProjects, clearProjects, checkEmpty }
