@@ -1,5 +1,5 @@
 import { loadProjects, checkEmpty } from "./storage.js";
-import { addProject, deleteProject } from "./logic.js";
+import { addProject, deleteProject, editProject } from "./logic.js";
 
 const body = document.querySelector("body");
 
@@ -27,16 +27,25 @@ export function loadDOM(){
 		});
 	});
 
-    const saveProjectButton = document.querySelector(".new-project .save");
-    saveProjectButton.addEventListener("click", e => {
+    const saveNewProjectButton = document.querySelector(".new-project .save");
+    saveNewProjectButton.addEventListener("click", e => {
         e.preventDefault();
         const dialog = document.querySelector("dialog.new-project");
         const form = dialog.querySelector("form");
         const name = dialog.querySelector("input.project-name").value;
         addProject(name);
-        dialog.close();
-        form.reset();
-        refreshList();
+        refresh(dialog, form);
+    })
+
+    const saveEditProjectButton = document.querySelector(".edit-project .save");
+    saveEditProjectButton.addEventListener("click", e => {
+        e.preventDefault();
+        const oldName = localStorage.getItem("oldName");
+        const dialog = document.querySelector("dialog.edit-project");
+        const form = dialog.querySelector("form");
+        const newName = dialog.querySelector("input.project-name").value;
+        editProject(oldName, newName);
+        refresh(dialog, form);
     })
 }
 
@@ -58,6 +67,13 @@ function refreshList() {
         editButton.setAttribute("id", "edit");
         editButton.innerHTML = "edit";
         div.appendChild(editButton);
+        editButton.addEventListener("click", () => {
+            const editProjectDialog = document.querySelector("dialog.edit-project");
+            const projectNameInput = editProjectDialog.querySelector("input.project-name");
+            projectNameInput.value = project.name;
+            localStorage.setItem("oldName", project.name);
+            editProjectDialog.showModal();
+        })
         const deleteButton = document.createElement("span");
         deleteButton.setAttribute("class", "material-symbols-rounded");
         deleteButton.setAttribute("id", "delete");
@@ -68,4 +84,10 @@ function refreshList() {
             refreshList();
         })
     }); 
+}
+
+function refresh(dialog, form) {
+    dialog.close();
+    form.reset();
+    refreshList();
 }

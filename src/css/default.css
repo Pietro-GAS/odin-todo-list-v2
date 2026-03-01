@@ -13,7 +13,8 @@ body,
 .sidebar,
 .project-list,
 .button,
-form.new-project {
+form.new-project,
+form.edit-project {
 	display: flex;
 	flex-direction: column;
 }
@@ -94,7 +95,8 @@ dialog .header {
 	align-items: center;
 }
 
-dialog.new-project {
+dialog.new-project,
+dialog.edit-project {
 	align-self: center;
 	justify-self: center;
 	background-color: lightgray;
@@ -102,7 +104,8 @@ dialog.new-project {
 	border-radius: 10px;
 }
 
-form.new-project {
+form.new-project,
+form.edit-project {
 	padding: 20px;
 	height: 8rem;
 	gap: 20px;
@@ -111,21 +114,27 @@ form.new-project {
 }
 
 form.new-project input,
-form.new-project .buttons {
+form.edit-project input,
+form.new-project .buttons
+form.edit-project .buttons {
 	width: 100%;
 }
 
-form.new-project input {
+form.new-project input,
+form.edit-project input {
 	height: 2rem;
     color: black;
+    padding: 3px;
 }
 
-form.new-project .buttons {
+form.new-project .buttons,
+form.edit-project .buttons {
 	display: flex;
 	justify-content: center;
 	gap: 20px;
 }
 
-form.new-project .buttons .button {
+form.new-project .buttons .button,
+form.edit-project .buttons .button {
 	width: 120px;
 }

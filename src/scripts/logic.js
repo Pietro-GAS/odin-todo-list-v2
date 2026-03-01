@@ -6,8 +6,9 @@ function createProject(name) {
         tasks.push(task)
     }
     const removeTask = (task) => {
-        const position = tasks.indexOf(task);
-        tasks.splice(position, 1);
+        tasks = tasks.filter(element => element.name !== task.name)
+        //const position = tasks.indexOf(task);
+        //tasks.splice(position, 1);
     }
     return {name, tasks, addTask, removeTask}
 }
@@ -24,3 +25,15 @@ export function deleteProject(name) {
     projectList = projectList.filter(element => element.name !== name)
     saveProjects(projectList);
 }
+
+export function editProject(oldName, newName) {
+    let projectList = loadProjects();
+    const oldProject = projectList.find(project => project.name === oldName);
+    const position = projectList.indexOf(oldProject);
+    const newProject = createProject(newName);
+    oldProject.tasks.forEach(task => {
+        newProject.addTask(task);
+    })
+    projectList.splice(position, 1, newProject);
+    saveProjects(projectList);
+};
