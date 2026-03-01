@@ -3,7 +3,7 @@ function saveProjects(list) {
 }
 
 function loadProjects() {
-	return JSON.parse(localStorage.getItem("projectList"));
+    return JSON.parse(localStorage.getItem("projectList"));
 }
 
 function clearProjects() {

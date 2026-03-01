@@ -111,6 +111,7 @@ form.new-project .buttons {
 
 form.new-project input {
 	height: 2rem;
+    color: black;
 }
 
 form.new-project .buttons {
