@@ -1,0 +1,124 @@
+*, *::before, *::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	color: white;
+}
+
+body {
+	height: 100vh;
+}
+
+body,
+.sidebar,
+.project-list,
+.button,
+form.new-project {
+	display: flex;
+	flex-direction: column;
+}
+
+.header {
+	display: flex;
+	align-items: center;
+}
+
+body div.header {
+	background-color: midnightblue;
+	padding-left: 10px;
+	border-bottom: 1px solid aliceblue;
+	flex-grow: 1;
+}
+
+.header h1 {
+	height: 2rem;
+	line-height: 2rem;
+}
+
+.container {
+	display: flex;
+	flex-grow: 15;
+}
+
+.sidebar {
+	background-color: midnightblue;
+	padding: 10px;
+	border-right: 1px solid aliceblue;
+	flex-grow: 1;
+	gap: 5px;
+}
+
+.sidebar .header,
+dialog .header {
+	justify-content: space-between;
+	flex-grow: 0;
+	padding-bottom: 10px;
+}
+
+.sidebar #new-project {
+	padding-left: 10px;
+	padding-right: 10px;
+	justify-content: center;
+}
+
+.project-list{
+	gap: 10px;
+}
+
+.project-list ul {
+	list-style-position: inside;
+	padding-left: 10px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid aliceblue;
+}
+
+.task-area {
+	background-color: lightsteelblue;
+	flex-grow: 5;
+}
+
+.button {
+	background-color: darkslateblue;
+	border: solid 1px aliceblue;
+	border-radius: 5px;
+	height: 2rem;
+	line-height: 2rem;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+}
+
+dialog.new-project {
+	align-self: center;
+	justify-self: center;
+	background-color: lightgray;
+	border: 1.5px solid aliceblue;
+	border-radius: 10px;
+}
+
+form.new-project {
+	padding: 20px;
+	height: 8rem;
+	gap: 20px;
+	justify-content: center;
+	align-items: center;
+}
+
+form.new-project input,
+form.new-project .buttons {
+	width: 100%;
+}
+
+form.new-project input {
+	height: 2rem;
+}
+
+form.new-project .buttons {
+	display: flex;
+	justify-content: center;
+	gap: 20px;
+}
+
+form.new-project .buttons .button {
+	width: 120px;
+}
