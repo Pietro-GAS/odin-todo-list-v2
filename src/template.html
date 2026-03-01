@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link
+		  rel="stylesheet" 
+		  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded"
+		>
+    <title>My todo list</title>
+</head>
+<body>
+	<div class="header">
+		<h1>Odin todo list</h1>
+	</div>
+	<div class="container">
+		<div class="sidebar">
+			<div class="header">
+				<h2>Projects</h2>
+				<div class="button"  id="new-project">
+					<span class="material-symbols-rounded">add</span>
+				</div>
+			</div>
+			<div class="project-list">
+				<ul></ul>
+				<div class="button" id="new-project">New project</div>
+			</div>
+		</div>
+		<div class="task-area">Task Area</div>
+	</div>
+	<dialog class="new-project">
+		<form class="new-project">
+			<input type="text" class="project-name" name="project-name"
+			    placeholder="Insert the project name">
+			<div class="buttons">
+				<div class="button cancel">Cancel</div>
+				<div class="button save">Save</div>
+			</div>
+		</form>
+	</dialog>
+</body>
+</html>
