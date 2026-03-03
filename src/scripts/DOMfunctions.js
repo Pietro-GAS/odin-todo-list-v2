@@ -45,21 +45,22 @@ export function loadDOM(){
         const form = dialog.querySelector("form");
         const newName = dialog.querySelector("input.project-name").value;
         editProject(oldName, newName);
+        //localStorage.setItem("activeProject", newName);
         refresh(dialog, form);
     })
 
-    const projects = document.querySelectorAll(".project-list ul li");
-    projects.forEach(project => {
-        const title = project.querySelector("p").textContent;
-        project.addEventListener("click", e => {
-            e.preventDefault();
-            projects.forEach( project => {
-                project.classList.remove("active");
-            })
-            project.classList.add("active");
-            document.querySelector(".task-area .header .project-title").textContent = title;
-        })
-    })
+    //const projects = document.querySelectorAll(".project-list ul li");
+    //projects.forEach(project => {
+    //     project.addEventListener("click", e => {
+    //        e.preventDefault();
+    //        projects.forEach( project => {             
+    //            project.classList.remove("active");
+    //        })
+    //        project.classList.add("active");
+    //        //const projectName = project.querySelector("p").textContent;
+    //        //localStorage.setItem("activeProject", projectName);
+    //        refreshTitle();
+    //    })
 
     const newTaskButton = document.querySelector(".button#new-task");
     newTaskButton.addEventListener("click", e => {
@@ -107,11 +108,32 @@ function refreshList() {
             deleteProject(project.name);
             refreshList();
         })
-    }); 
+    });
+    const projectLi = document.querySelectorAll(".project-list ul li");
+    projectLi.forEach(li => {
+        li.addEventListener("click", e => {
+            e.preventDefault();
+            projectLi.forEach(li => {
+                li.classList.remove("active");
+            })
+            li.classList.add("active");
+            refreshTitle();
+        })
+    })
+
 }
+
+function refreshTitle(){
+    //const activeProject = document.querySelector(".project-list ul li.active");
+    const activeProject = document.querySelector(".project-list ul li.active");
+    const title = activeProject.querySelector("p").textContent;
+    document.querySelector(".task-area .header .project-title").textContent = title;
+}
+
 
 function refresh(dialog, form) {
     dialog.close();
     form.reset();
     refreshList();
+    refreshTitle();
 }

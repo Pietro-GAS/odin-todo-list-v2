@@ -1,6 +1,7 @@
 import { loadProjects, saveProjects } from "./storage"
 
 function createProject(name) {
+    const active = false;
     const tasks = [];
     const addTask = (task) => {
         tasks.push(task)
