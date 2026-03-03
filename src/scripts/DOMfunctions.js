@@ -47,6 +47,17 @@ export function loadDOM(){
         editProject(oldName, newName);
         refresh(dialog, form);
     })
+
+    const projects = document.querySelectorAll(".project-list ul li");
+    projects.forEach(project => {
+        project.addEventListener("click", e => {
+            e.preventDefault();
+            projects.forEach( project => {
+                project.classList.remove("active");
+            })
+            project.classList.add("active");
+        })
+    })
 }
 
 function refreshList() {

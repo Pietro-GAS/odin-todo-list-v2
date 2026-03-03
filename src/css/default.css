@@ -83,6 +83,16 @@ dialog .header {
 
 .project-list ul li:hover {
 	background-color: darkslateblue;
+	border-radius: 5px;
+}
+
+.project-list ul li.active {
+	background-color: aliceblue;
+	border-radius: 5px;
+}
+
+.project-list ul li.active * {
+	color: midnightblue;
 }
 
 .task-area {
