@@ -56,6 +56,11 @@ dialog .header {
 	padding-bottom: 10px;
 }
 
+.sidebar .header,
+.task-area .header {
+	height: 3rem;
+}
+
 .sidebar #new-project {
 	padding-left: 10px;
 	padding-right: 10px;
@@ -87,7 +92,7 @@ dialog .header {
 }
 
 .project-list ul li.active {
-	background-color: aliceblue;
+	background-color: lightsteelblue;
 	border-radius: 5px;
 }
 
@@ -98,6 +103,24 @@ dialog .header {
 .task-area {
 	background-color: lightsteelblue;
 	flex-grow: 5;
+	padding: 10px;
+}
+
+.task-area .header {
+	background-color: lightsteelblue;
+	padding-bottom: 10px;
+	justify-content: space-between;
+}
+
+.task-area .header .project-title {
+	color: midnightblue;
+	min-width: 300px;
+}
+
+.task-area #new-task {
+	padding-left: 10px;
+	padding-right: 10px;
+	width: 100px;
 }
 
 .button {

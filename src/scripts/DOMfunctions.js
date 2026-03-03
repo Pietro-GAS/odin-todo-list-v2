@@ -50,12 +50,14 @@ export function loadDOM(){
 
     const projects = document.querySelectorAll(".project-list ul li");
     projects.forEach(project => {
+        const title = project.querySelector("p").textContent;
         project.addEventListener("click", e => {
             e.preventDefault();
             projects.forEach( project => {
                 project.classList.remove("active");
             })
             project.classList.add("active");
+            document.querySelector(".task-area .header .project-title").textContent = title;
         })
     })
 }
