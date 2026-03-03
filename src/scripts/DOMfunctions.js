@@ -60,6 +60,17 @@ export function loadDOM(){
             document.querySelector(".task-area .header .project-title").textContent = title;
         })
     })
+
+    const newTaskButton = document.querySelector(".button#new-task");
+    newTaskButton.addEventListener("click", e => {
+        e.preventDefault();
+        //const taskList = document.querySelector(".task-list");
+        //const task = document.createElement("div");
+        //task.setAttribute("class", "task");
+        //taskList.appendChild(task);
+        const dialog = document.querySelector("dialog.new-task");
+        dialog.showModal();
+    })
 }
 
 function refreshList() {

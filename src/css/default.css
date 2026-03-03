@@ -14,7 +14,8 @@ body,
 .project-list,
 .button,
 form.new-project,
-form.edit-project {
+form.edit-project,
+form.new-task {
 	display: flex;
 	flex-direction: column;
 }
@@ -49,8 +50,7 @@ body div.header {
 	gap: 5px;
 }
 
-.sidebar .header,
-dialog .header {
+.sidebar .header {
 	justify-content: space-between;
 	flex-grow: 0;
 	padding-bottom: 10px;
@@ -96,7 +96,11 @@ dialog .header {
 	border-radius: 5px;
 }
 
-.project-list ul li.active * {
+.project-list ul li.active *,
+form input,
+form select,
+form select option,
+form textarea {
 	color: midnightblue;
 }
 
@@ -135,7 +139,8 @@ dialog .header {
 }
 
 dialog.new-project,
-dialog.edit-project {
+dialog.edit-project,
+dialog.new-task {
 	align-self: center;
 	justify-self: center;
 	background-color: midnightblue;
@@ -148,37 +153,50 @@ dialog::backdrop {
 	opacity: 0.75;
 }
 
-form.new-project,
-form.edit-project {
+form {
 	padding: 20px;
-	height: 10rem;
+	min-height: 10rem;
 	gap: 30px;
 	justify-content: center;
 	align-items: center;
 }
 
-form.new-project input,
-form.edit-project input,
-form.new-project .buttons
-form.edit-project .buttons {
+form input,
+form select,
+form .buttons {
 	width: 100%;
 }
 
-form.new-project input,
-form.edit-project input {
+form input,
+form select {
 	height: 2.25rem;
-    color: black;
     padding: 3px;
 }
 
-form.new-project .buttons,
-form.edit-project .buttons {
+form .form-content {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	width: 100%;
+}
+
+form .form-content div {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+form .buttons {
 	display: flex;
 	justify-content: center;
 	gap: 20px;
 }
 
-form.new-project .buttons .button,
-form.edit-project .buttons .button {
+.buttons .button {
 	width: 120px;
+}
+
+textarea#task-description {
+	min-height: 5rem;
+	padding: 3px;
 }
