@@ -138,7 +138,7 @@ function refreshList() {
             if (activeProject !== null) {
                 refreshTasks(activeProject);
             }
-            newTaskVisibility();git lo
+            newTaskVisibility();
         })
     })
 }
