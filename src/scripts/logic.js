@@ -49,13 +49,17 @@ export function replaceProject(newProject) {
 export function getProject(name) {
     const projectList = loadProjects();
     const project = projectList.find(project => project.name === name);
-    project.addTask = function(task) {
+    if (project === undefined) {
+        return null
+    } else {
+        project.addTask = function(task) {
         this.tasks.push(task);
     }
     project.removeTask = function(task) {
         this.tasks = this.tasks.filter(element => element.name !== task.name);
     }
     return project;
+    }    
 }
 
 export function createTask(name, date, priority, description) {

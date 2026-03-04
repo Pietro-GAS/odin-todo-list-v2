@@ -60,8 +60,9 @@ export function loadDOM(){
         e.preventDefault();
         const dialog = document.querySelector("dialog.new-task");
         const form = dialog.querySelector("form");
-        const activeProjectName = document.querySelector(".task-area .header .project-title").textContent;
-        const activeProject = getProject(activeProjectName);
+        const activeProject = getActiveProject();
+        //const activeProjectName = document.querySelector(".task-area .header .project-title").textContent;
+        //const activeProject = getProject(activeProjectName);
         const taskName = document.querySelector("form.new-task input#task-name").value;
         const taskDate = document.querySelector("form.new-task input#task-date").value;
         const taskPriority = document.querySelector("form.new-task select#task-priority option:checked").textContent;
@@ -77,9 +78,19 @@ export function loadDOM(){
 function refreshList() {
     const projects = loadProjects();
     const projectList = document.querySelector(".project-list ul");
+    const activeProject = getActiveProject();
+    let activeProjectName;
+    if (activeProject !== null) {
+        activeProjectName = activeProject.name;
+    } else {
+        activeProjectName = null;
+    }
     projectList.replaceChildren();
     projects.forEach(project => {
         const li = document.createElement("li");
+        if (project.name === activeProjectName) {
+            li.setAttribute("class", "active");
+        }
         projectList.appendChild(li);
         const p = document.createElement("p");
         p.innerHTML = project.name;
@@ -107,6 +118,9 @@ function refreshList() {
         deleteButton.addEventListener("click", () => {
             deleteProject(project.name);
             refreshList();
+            refreshTitle();
+            const activeProject = getActiveProject();
+            refreshTasks(activeProject);
         })
     });
     const projectLi = document.querySelectorAll(".project-list ul li");
@@ -120,7 +134,9 @@ function refreshList() {
             const activeProjectName = li.querySelector("p").textContent;
             const activeProject = getProject(activeProjectName);
             refreshTitle();
-            refreshTasks(activeProject);
+            if (activeProject !== null) {
+                refreshTasks(activeProject);
+            }
         })
     })
 
@@ -128,8 +144,12 @@ function refreshList() {
 
 function refreshTitle(){
     const activeProject = document.querySelector(".project-list ul li.active");
-    const title = activeProject.querySelector("p").textContent;
-    document.querySelector(".task-area .header .project-title").textContent = title;
+    if (activeProject !== null) {
+        const title = activeProject.querySelector("p").textContent;
+        document.querySelector(".task-area .header .project-title").textContent = title;
+    } else {
+        document.querySelector(".task-area .header .project-title").textContent = "";
+    }
 }
 
 function reset(dialog, form) {
@@ -139,64 +159,77 @@ function reset(dialog, form) {
 
 function refreshTasks(project){
     const taskList = document.querySelector(".task-area .task-list");
-    const tasks = project.tasks;
     taskList.replaceChildren();
-    tasks.forEach(task => {
-        const taskContainer = document.createElement("div");
-        taskContainer.setAttribute("class", "task-container");
-        taskList.appendChild(taskContainer);
+    if (project !== null) {
+        const tasks = project.tasks;
+        tasks.forEach(task => {
+            const taskContainer = document.createElement("div");
+            taskContainer.setAttribute("class", "task-container");
+            taskList.appendChild(taskContainer);
 
-        const taskNameDiv = document.createElement("div");
-        taskNameDiv.setAttribute("class", "title");
-        const taskName = document.createElement("div");
-        taskName.setAttribute("class", "task-name");
-        taskName.textContent = task.name;
-        const taskButtonsDiv = document.createElement("div");
-        taskButtonsDiv.setAttribute("class", "buttons");
-        const editTaskButton = document.createElement("span");
-        const deleteTaskButton = document.createElement("span");
-        editTaskButton.setAttribute("class", "material-symbols-rounded");
-        editTaskButton.innerHTML = "edit";
-        deleteTaskButton.setAttribute("class", "material-symbols-rounded");
-        deleteTaskButton.innerHTML = "delete";     
-        taskContainer.appendChild(taskNameDiv);
-        taskNameDiv.appendChild(taskName);
-        taskNameDiv.appendChild(taskButtonsDiv);
-        taskButtonsDiv.appendChild(editTaskButton);
-        taskButtonsDiv.appendChild(deleteTaskButton);
-        deleteTaskButton.addEventListener("click", e => {
-            e.preventDefault();
-            deleteTask(project, task.name);
-            refreshTasks(project);
+            const taskNameDiv = document.createElement("div");
+            taskNameDiv.setAttribute("class", "title");
+            const taskName = document.createElement("div");
+            taskName.setAttribute("class", "task-name");
+            taskName.textContent = task.name;
+            const taskButtonsDiv = document.createElement("div");
+            taskButtonsDiv.setAttribute("class", "buttons");
+            const editTaskButton = document.createElement("span");
+            const deleteTaskButton = document.createElement("span");
+            editTaskButton.setAttribute("class", "material-symbols-rounded");
+            editTaskButton.innerHTML = "edit";
+            deleteTaskButton.setAttribute("class", "material-symbols-rounded");
+            deleteTaskButton.innerHTML = "delete";     
+            taskContainer.appendChild(taskNameDiv);
+            taskNameDiv.appendChild(taskName);
+            taskNameDiv.appendChild(taskButtonsDiv);
+            taskButtonsDiv.appendChild(editTaskButton);
+            taskButtonsDiv.appendChild(deleteTaskButton);
+            deleteTaskButton.addEventListener("click", e => {
+                e.preventDefault();
+                deleteTask(project, task.name);
+                refreshTasks(project);
+            })
+
+            const dateDiv = document.createElement("div");
+            const taskDateLabel = document.createElement("label");
+            const taskDate = document.createElement("span");
+            taskDateLabel.textContent = "Due date:";
+            taskDate.textContent = task.date;
+            taskContainer.appendChild(dateDiv);
+            dateDiv.appendChild(taskDateLabel);
+            dateDiv.appendChild(taskDate);
+
+            const prioDiv = document.createElement("div");
+            const taskPriorityLabel = document.createElement("label");
+            const taskPriority = document.createElement("span");
+            taskPriorityLabel.textContent = "Priority:";
+            taskPriority.textContent = task.priority;
+            taskContainer.appendChild(prioDiv);
+            prioDiv.appendChild(taskPriorityLabel);
+            prioDiv.appendChild(taskPriority);
+
+            const taskDescription = document.createElement("div");
+            taskDescription.setAttribute("class", "task-description");
+            taskDescription.textContent = task.description;
+            taskContainer.appendChild(taskDescription);
         })
-
-        const dateDiv = document.createElement("div");
-        const taskDateLabel = document.createElement("label");
-        const taskDate = document.createElement("span");
-        taskDateLabel.textContent = "Due date:";
-        taskDate.textContent = task.date;
-        taskContainer.appendChild(dateDiv);
-        dateDiv.appendChild(taskDateLabel);
-        dateDiv.appendChild(taskDate);
-
-        const prioDiv = document.createElement("div");
-        const taskPriorityLabel = document.createElement("label");
-        const taskPriority = document.createElement("span");
-        taskPriorityLabel.textContent = "Priority:";
-        taskPriority.textContent = task.priority;
-        taskContainer.appendChild(prioDiv);
-        prioDiv.appendChild(taskPriorityLabel);
-        prioDiv.appendChild(taskPriority);
-
-        const taskDescription = document.createElement("div");
-        taskDescription.setAttribute("class", "task-description");
-        taskDescription.textContent = task.description;
-        taskContainer.appendChild(taskDescription);
-    })
+    }
 }
 
 function refreshAll(dialog, form) {
     reset(dialog, form);
     refreshList();
     refreshTitle();
+}
+
+function getActiveProject() {
+    const activeProjectTitle = document.querySelector(".task-area .header .project-title");
+    if (activeProjectTitle !== null) {
+        const activeProjectName = document.querySelector(".task-area .header .project-title").textContent;
+        const activeProject = getProject(activeProjectName);
+        return activeProject;
+    } else {
+        return null;
+    }
 }
