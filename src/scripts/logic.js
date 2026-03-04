@@ -39,6 +39,13 @@ export function editProject(oldName, newName) {
     saveProjects(projectList);
 };
 
+export function replaceProject(newProject) {
+    let projectList = loadProjects();
+    const position = projectList.findIndex(project => project.name === newProject.name);
+    projectList.splice(position, 1, newProject);
+    saveProjects(projectList);
+}
+
 export function getProject(name) {
     const projectList = loadProjects();
     const project = projectList.find(project => project.name === name);
@@ -51,6 +58,6 @@ export function getProject(name) {
     return project;
 }
 
-function createTask(name, date, priority, description) {
+export function createTask(name, date, priority, description) {
     return {name, date, priority, description}
 }

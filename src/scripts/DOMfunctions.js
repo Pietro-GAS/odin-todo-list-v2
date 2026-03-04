@@ -1,5 +1,5 @@
 import { loadProjects, checkEmpty } from "./storage.js";
-import { addProject, deleteProject, editProject, getProject } from "./logic.js";
+import { addProject, deleteProject, editProject, replaceProject, getProject, createTask } from "./logic.js";
 
 const body = document.querySelector("body");
 
@@ -73,17 +73,22 @@ export function loadDOM(){
         dialog.showModal();
     })
 
-    //const saveNewTaskButton = document.querySelector(".new-task .save");
-    //saveNewTaskButton.addEventListener("click", e => {
-    //    e.preventDefault();
-    //    const dialog = document.querySelector("dialog.new-task");
-    //    const form = dialog.querySelector("form");
-    //    const activeProjectName = document.querySelector(".task-area .header .project-title").textContent;
-    //    const activeProject = getProject(activeProjectName);
-    //    activeProject.add
-    //    
-     //   refresh(dialog, form);
-    //})
+    const saveNewTaskButton = document.querySelector(".new-task .save");
+    saveNewTaskButton.addEventListener("click", e => {
+        e.preventDefault();
+        const dialog = document.querySelector("dialog.new-task");
+        const form = dialog.querySelector("form");
+        const activeProjectName = document.querySelector(".task-area .header .project-title").textContent;
+        const activeProject = getProject(activeProjectName);
+        const taskName = document.querySelector("form.new-task input#task-name").value;
+        const taskDate = document.querySelector("form.new-task input#task-date").value;
+        const taskPriority = document.querySelector("form.new-task select#task-priority option:checked").textContent;
+        const taskDescription = document.querySelector("form.new-task textarea#task-description").value;
+        const task = createTask(taskName, taskDate, taskPriority, taskDescription);
+        activeProject.addTask(task);
+        replaceProject(activeProject);        
+        reset(dialog, form);
+    })
 }
 
 function refreshList() {
@@ -142,10 +147,14 @@ function refreshTitle(){
     document.querySelector(".task-area .header .project-title").textContent = title;
 }
 
-
-function refresh(dialog, form) {
+function reset(dialog, form) {
     dialog.close();
     form.reset();
+}
+
+
+function refresh(dialog, form) {
+    reset(dialog, form);
     refreshList();
     refreshTitle();
 }
