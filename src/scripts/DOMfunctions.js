@@ -34,7 +34,7 @@ export function loadDOM(){
         const form = dialog.querySelector("form");
         const name = dialog.querySelector("input.project-name").value;
         addProject(name);
-        refresh(dialog, form);
+        refreshAll(dialog, form);
     })
 
     const saveEditProjectButton = document.querySelector(".edit-project .save");
@@ -46,7 +46,7 @@ export function loadDOM(){
         const newName = dialog.querySelector("input.project-name").value;
         editProject(oldName, newName);
         //localStorage.setItem("activeProject", newName);
-        refresh(dialog, form);
+        refreshAll(dialog, form);
     })
 
     //const projects = document.querySelectorAll(".project-list ul li");
@@ -88,6 +88,7 @@ export function loadDOM(){
         activeProject.addTask(task);
         replaceProject(activeProject);        
         reset(dialog, form);
+        refreshTasks(activeProject);
     })
 }
 
@@ -134,7 +135,10 @@ function refreshList() {
                 li.classList.remove("active");
             })
             li.classList.add("active");
+            const activeProjectName = li.querySelector("p").textContent;
+            const activeProject = getProject(activeProjectName);
             refreshTitle();
+            refreshTasks(activeProject);
         })
     })
 
@@ -152,8 +156,21 @@ function reset(dialog, form) {
     form.reset();
 }
 
+function refreshTasks(project){
+    const taskList = document.querySelector(".task-area .task-list");
+    const tasks = project.tasks;
+    taskList.replaceChildren();
+    tasks.forEach(task => {
+        const taskContainer = document.createElement("div");
+        taskContainer.setAttribute("class", "task-container");
+        taskList.appendChild(taskContainer);
+        const taskName = document.createElement("div");
+        taskName.textContent = task.name;
+        taskContainer.appendChild(taskName);
+    })
+}
 
-function refresh(dialog, form) {
+function refreshAll(dialog, form) {
     reset(dialog, form);
     refreshList();
     refreshTitle();
