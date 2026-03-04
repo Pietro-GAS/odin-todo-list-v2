@@ -45,30 +45,12 @@ export function loadDOM(){
         const form = dialog.querySelector("form");
         const newName = dialog.querySelector("input.project-name").value;
         editProject(oldName, newName);
-        //localStorage.setItem("activeProject", newName);
         refreshAll(dialog, form);
     })
-
-    //const projects = document.querySelectorAll(".project-list ul li");
-    //projects.forEach(project => {
-    //     project.addEventListener("click", e => {
-    //        e.preventDefault();
-    //        projects.forEach( project => {             
-    //            project.classList.remove("active");
-    //        })
-    //        project.classList.add("active");
-    //        //const projectName = project.querySelector("p").textContent;
-    //        //localStorage.setItem("activeProject", projectName);
-    //        refreshTitle();
-    //    })
 
     const newTaskButton = document.querySelector(".button#new-task");
     newTaskButton.addEventListener("click", e => {
         e.preventDefault();
-        //const taskList = document.querySelector(".task-list");
-        //const task = document.createElement("div");
-        //task.setAttribute("class", "task");
-        //taskList.appendChild(task);
         const dialog = document.querySelector("dialog.new-task");
         dialog.showModal();
     })
@@ -145,7 +127,6 @@ function refreshList() {
 }
 
 function refreshTitle(){
-    //const activeProject = document.querySelector(".project-list ul li.active");
     const activeProject = document.querySelector(".project-list ul li.active");
     const title = activeProject.querySelector("p").textContent;
     document.querySelector(".task-area .header .project-title").textContent = title;
