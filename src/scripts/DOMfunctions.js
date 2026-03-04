@@ -76,6 +76,7 @@ export function loadDOM(){
 }
 
 function refreshList() {
+    newTaskVisibility();
     const projects = loadProjects();
     const projectList = document.querySelector(".project-list ul");
     const activeProject = getActiveProject();
@@ -137,9 +138,9 @@ function refreshList() {
             if (activeProject !== null) {
                 refreshTasks(activeProject);
             }
+            newTaskVisibility();git lo
         })
     })
-
 }
 
 function refreshTitle(){
@@ -244,5 +245,15 @@ function getActiveProject() {
         return activeProject;
     } else {
         return null;
+    }
+}
+
+function newTaskVisibility() {
+    const newTaskButton = document.querySelector(".button#new-task");
+    const activeProject = getActiveProject();
+    if (activeProject === null) {
+        newTaskButton.style.visibility = "hidden";
+    } else {
+        newTaskButton.style.visibility = "visible";
     }
 }
