@@ -4,10 +4,10 @@ function createProject(name) {
     const active = false;
     const tasks = [];
     const addTask = (task) => {
-        tasks.push(task)
+        this.tasks.push(task)
     }
     const removeTask = (task) => {
-        tasks = tasks.filter(element => element.name !== task.name)
+        this.tasks = this.tasks.filter(element => element.name !== task.name)
         //const position = tasks.indexOf(task);
         //tasks.splice(position, 1);
     }
@@ -38,3 +38,19 @@ export function editProject(oldName, newName) {
     projectList.splice(position, 1, newProject);
     saveProjects(projectList);
 };
+
+export function getProject(name) {
+    const projectList = loadProjects();
+    const project = projectList.find(project => project.name === name);
+    project.addTask = function(task) {
+        this.tasks.push(task);
+    }
+    project.removeTask = function(task) {
+        this.tasks = this.tasks.filter(element => element.name !== task.name);
+    }
+    return project;
+}
+
+function createTask(name, date, priority, description) {
+    return {name, date, priority, description}
+}

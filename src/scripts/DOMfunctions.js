@@ -1,5 +1,5 @@
 import { loadProjects, checkEmpty } from "./storage.js";
-import { addProject, deleteProject, editProject } from "./logic.js";
+import { addProject, deleteProject, editProject, getProject } from "./logic.js";
 
 const body = document.querySelector("body");
 
@@ -72,6 +72,18 @@ export function loadDOM(){
         const dialog = document.querySelector("dialog.new-task");
         dialog.showModal();
     })
+
+    //const saveNewTaskButton = document.querySelector(".new-task .save");
+    //saveNewTaskButton.addEventListener("click", e => {
+    //    e.preventDefault();
+    //    const dialog = document.querySelector("dialog.new-task");
+    //    const form = dialog.querySelector("form");
+    //    const activeProjectName = document.querySelector(".task-area .header .project-title").textContent;
+    //    const activeProject = getProject(activeProjectName);
+    //    activeProject.add
+    //    
+     //   refresh(dialog, form);
+    //})
 }
 
 function refreshList() {
