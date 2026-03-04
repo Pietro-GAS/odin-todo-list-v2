@@ -66,9 +66,37 @@
 				<div class="task-priority">
 					<label for="task-priority">Priority:</label>
 					<select name="task-priority" id="task-priority">
-						<option value="pri-low">Low</option>
-						<option value="pri-medium">Medium</option>
-						<option value="pri-high">High</option>
+						<option value="Low">Low</option>
+						<option value="Medium">Medium</option>
+						<option value="High">High</option>
+					</select>
+				</div>
+				<div class="task-description">
+					<label for="task-description">Description:</label>
+					<textarea name="task-description" id="task-description"></textarea>
+				</div>
+			</div>
+			<div class="buttons">
+				<div class="button cancel">Cancel</div>
+				<div class="button save">Save</div>
+			</div>
+		</form>
+	</dialog>
+	<dialog class="edit-task">
+		<form class="edit-task">
+			<div class="form-content">
+				<input type="text" class="task-name" id="task-name" name="task-name"
+					placeholder="Insert the task name">
+				<div class="task-date">
+					<label for="task-date">Due date:</label>
+					<input type="date" name="task-date" id="task-date">
+				</div>
+				<div class="task-priority">
+					<label for="task-priority">Priority:</label>
+					<select name="task-priority" id="task-priority">
+						<option value="Low">Low</option>
+						<option value="Medium">Medium</option>
+						<option value="High">High</option>
 					</select>
 				</div>
 				<div class="task-description">

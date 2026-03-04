@@ -190,6 +190,19 @@ function refreshTasks(project){
                 deleteTask(project, task.name);
                 refreshTasks(project);
             })
+            editTaskButton.addEventListener("click", e => {
+                e.preventDefault();
+                const dialog = document.querySelector("dialog.edit-task");
+                const name = dialog.querySelector("input#task-name")
+                name.value = task.name;
+                const date = dialog.querySelector("input#task-date");
+                date.value = task.date;
+                const priority = dialog.querySelector("select#task-priority");
+                priority.value = task.priority;
+                const description = dialog.querySelector("textarea#task-description");
+                description.value = task.description;
+                dialog.showModal();
+            })
 
             const dateDiv = document.createElement("div");
             const taskDateLabel = document.createElement("label");

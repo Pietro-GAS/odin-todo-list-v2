@@ -15,7 +15,8 @@ body,
 .button,
 form.new-project,
 form.edit-project,
-form.new-task {
+form.new-task,
+form.edit-task {
 	display: flex;
 	flex-direction: column;
 }
@@ -197,7 +198,8 @@ form textarea {
 
 dialog.new-project,
 dialog.edit-project,
-dialog.new-task {
+dialog.new-task,
+dialog.edit-task {
 	align-self: center;
 	justify-self: center;
 	background-color: midnightblue;
