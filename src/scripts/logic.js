@@ -61,3 +61,10 @@ export function getProject(name) {
 export function createTask(name, date, priority, description) {
     return {name, date, priority, description}
 }
+
+export function deleteTask(project, taskName) {
+    let tasks = project.tasks;
+    tasks = tasks.filter(t => t.name !== taskName);
+    project.tasks = tasks;
+    replaceProject(project);
+}

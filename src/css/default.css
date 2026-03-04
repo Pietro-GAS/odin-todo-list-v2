@@ -30,6 +30,7 @@ body div.header {
 	padding-left: 10px;
 	border-bottom: 1px solid aliceblue;
 	flex-grow: 1;
+	min-height: 52px;
 }
 
 .header h1 {
@@ -48,6 +49,7 @@ body div.header {
 	border-right: 1px solid aliceblue;
 	flex-grow: 1;
 	gap: 5px;
+	min-width: 200px;
 }
 
 .sidebar .header {
@@ -125,6 +127,61 @@ form textarea {
 	padding-left: 10px;
 	padding-right: 10px;
 	width: 100px;
+}
+
+.task-area .task-list {
+	display: grid;
+	grid-template: auto / repeat(4, 225px);
+	padding: 10px;
+	gap: 10px;
+}
+
+.task-container {
+	border: 1px solid aliceblue;
+	background-color: midnightblue;
+	border-radius: 5px;
+	padding: 10px;
+	padding-top: 5px;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap:5px;
+}
+
+.task-container div {
+	display:flex;
+	justify-content: space-between;
+	/*width: 100%*/;
+	gap: 20px;
+	align-items: center;
+}
+
+.task-container div.title {
+	border-bottom: solid 1px aliceblue;
+	margin-bottom: 10px;
+	width: 100%;
+	height: 2rem;
+}
+
+.task-container div.task-name {
+	font-weight: bold;
+}
+
+.task-container div.buttons {
+	gap: 2px;
+}
+
+.task-container div.task-description {
+	margin-top: 5px;
+	height: 90px;
+	width: 100%;
+	border: solid 1px aliceblue;
+	border-radius: 5px;
+	padding: 5px;
+	font-size: 0.8rem;
+	background-color: darkslateblue;
+	align-items: flex-start;
 }
 
 .button {
