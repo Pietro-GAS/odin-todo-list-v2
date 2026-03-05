@@ -1,5 +1,5 @@
 import { loadProjects, checkEmpty } from "./storage.js";
-import { addProject, deleteProject, editProject, replaceProject, getProject, createTask, deleteTask } from "./logic.js";
+import { addProject, deleteProject, editProject, replaceProject, getProject, createTask, deleteTask, editTask } from "./logic.js";
 
 const body = document.querySelector("body");
 
@@ -61,8 +61,6 @@ export function loadDOM(){
         const dialog = document.querySelector("dialog.new-task");
         const form = dialog.querySelector("form");
         const activeProject = getActiveProject();
-        //const activeProjectName = document.querySelector(".task-area .header .project-title").textContent;
-        //const activeProject = getProject(activeProjectName);
         const taskName = document.querySelector("form.new-task input#task-name").value;
         const taskDate = document.querySelector("form.new-task input#task-date").value;
         const taskPriority = document.querySelector("form.new-task select#task-priority option:checked").textContent;
@@ -70,6 +68,23 @@ export function loadDOM(){
         const task = createTask(taskName, taskDate, taskPriority, taskDescription);
         activeProject.addTask(task);
         replaceProject(activeProject);        
+        reset(dialog, form);
+        refreshTasks(activeProject);
+    })
+
+    const saveEditTaskButton = document.querySelector(".edit-task .save");
+    saveEditTaskButton.addEventListener("click", e => {
+        e.preventDefault();
+        const dialog = document.querySelector("dialog.new-task");
+        const form = dialog.querySelector("form");
+        const oldName = localStorage.getItem("oldTaskName");
+        const activeProject = getActiveProject();
+        const taskName = document.querySelector("form.new-task input#task-name").value;
+        const taskDate = document.querySelector("form.new-task input#task-date").value;
+        const taskPriority = document.querySelector("form.new-task select#task-priority option:checked").textContent;
+        const taskDescription = document.querySelector("form.new-task textarea#task-description").value;
+        const newTask = createTask(taskName, taskDate, taskPriority, taskDescription);
+        editTask(oldName, newTask, activeProject);
         reset(dialog, form);
         refreshTasks(activeProject);
     })
@@ -188,7 +203,7 @@ function refreshTasks(project){
             taskButtonsDiv.appendChild(deleteTaskButton);
             deleteTaskButton.addEventListener("click", e => {
                 e.preventDefault();
-                deleteTask(project, task.name);
+                deleteTask(project, task);
                 refreshTasks(project);
             })
             editTaskButton.addEventListener("click", e => {
@@ -202,6 +217,7 @@ function refreshTasks(project){
                 priority.value = task.priority;
                 const description = dialog.querySelector("textarea#task-description");
                 description.value = task.description;
+                localStorage.setItem("oldTaskName", task.name);
                 dialog.showModal();
             })
 

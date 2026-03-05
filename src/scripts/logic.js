@@ -66,9 +66,16 @@ export function createTask(name, date, priority, description) {
     return {name, date, priority, description}
 }
 
-export function deleteTask(project, taskName) {
-    let tasks = project.tasks;
-    tasks = tasks.filter(t => t.name !== taskName);
+export function deleteTask(project, task) {
+    project.removeTask(task);
+    replaceProject(project);
+}
+
+export function editTask(oldName, newTask, project) {
+    const projectList = loadProjects();
+    const tasks = project.tasks;
+    const position = tasks.findIndex(t => t.name === oldName);
+    tasks.splice(position, 1, newTask);
     project.tasks = tasks;
     replaceProject(project);
 }
