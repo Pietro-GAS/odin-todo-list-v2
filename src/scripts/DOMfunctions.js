@@ -75,16 +75,17 @@ export function loadDOM(){
     const saveEditTaskButton = document.querySelector(".edit-task .save");
     saveEditTaskButton.addEventListener("click", e => {
         e.preventDefault();
-        const dialog = document.querySelector("dialog.new-task");
+        const dialog = document.querySelector("dialog.edit-task");
         const form = dialog.querySelector("form");
         const oldName = localStorage.getItem("oldTaskName");
         const activeProject = getActiveProject();
-        const taskName = document.querySelector("form.new-task input#task-name").value;
-        const taskDate = document.querySelector("form.new-task input#task-date").value;
-        const taskPriority = document.querySelector("form.new-task select#task-priority option:checked").textContent;
-        const taskDescription = document.querySelector("form.new-task textarea#task-description").value;
+        const taskName = document.querySelector("form.edit-task input#task-name").value;
+        const taskDate = document.querySelector("form.edit-task input#task-date").value;
+        const taskPriority = document.querySelector("form.edit-task select#task-priority option:checked").textContent;
+        const taskDescription = document.querySelector("form.edit-task textarea#task-description").value;
         const newTask = createTask(taskName, taskDate, taskPriority, taskDescription);
         editTask(oldName, newTask, activeProject);
+        dialog.close();
         reset(dialog, form);
         refreshTasks(activeProject);
     })
